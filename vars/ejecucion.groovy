@@ -12,10 +12,10 @@ def call() {
             stage('pipeline') {
                 steps {
                     script {
-                        if (buildTool != null) {
-                            def buildToolGroovy = buildTool + '.groovy'
-                            def ejecucion = load buildToolGroovy
-                            ejecucion.call()
+                        if (params.buildTool == 'maven') {
+                            maven.call()
+                        } else {
+                            gradle.call()
                         }
                     }
                 }
@@ -23,10 +23,10 @@ def call() {
         }
         post {
             success {
-                slackSend(color: '#00FF00', message: '[gamboa][' + env.JOB_NAME + '][' + buildTool + '] Ejecución Exitosa.')
+                slackSend(color: '#00FF00', message: '[gamboa][' + env.JOB_NAME + '][' + params.buildTool + '] Ejecución Exitosa.')
             }
             failure {
-                slackSend(color: '#FF0000', message: '[gamboa][' + env.JOB_NAME + '][' + buildTool + '] Ejecución Fallida en Stage [' + CURRENT_STAGE + '].')
+                slackSend(color: '#FF0000', message: '[gamboa][' + env.JOB_NAME + '][' + params.buildTool + '] Ejecución Fallida en Stage [' + CURRENT_STAGE + '].')
             }
         }
     }
