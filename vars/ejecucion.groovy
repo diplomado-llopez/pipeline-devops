@@ -1,4 +1,4 @@
-def call() {
+void call() {
     pipeline {
         agent any
         environment {
@@ -7,15 +7,16 @@ def call() {
 
         parameters {
             choice choices: ['gradle', 'maven'], description: 'indicar la herramienta de construcción', name: 'buildTool'
+            string defaultValue: '', description: 'Stages a ejecutar', name: 'stage'
         }
         stages {
             stage('pipeline') {
                 steps {
                     script {
                         if (params.buildTool == 'maven') {
-                            maven.call()
+                            maven.call(params.stage.split(';'))
                         } else {
-                            gradle.call()
+                            gradle.call(params.stage.split(';'))
                         }
                     }
                 }
