@@ -18,14 +18,14 @@ void call(String[] stagesToRun) {
         stagesToRun = stages
     }
 
-    if (stagesToRun.includes(stageBuild)) {
+    if (stagesToRun.contains(stageBuild)) {
         stage(stageBuild) {
             CURRENT_STAGE = stageBuild
             sh './gradlew clean build'
         }
     }
 
-    if (stagesToRun.includes(stageSonar)) {
+    if (stagesToRun.contains(stageSonar)) {
         stage(stageSonar) {
             CURRENT_STAGE = stageSonar
             String scannerHome = tool 'sonar-scanner'
@@ -35,7 +35,7 @@ void call(String[] stagesToRun) {
         }
     }
 
-    if (stagesToRun.includes(stageRun)) {
+    if (stagesToRun.contains(stageRun)) {
         stage(stageRun) {
             CURRENT_STAGE = stageRun
             sh './gradlew bootRun &'
@@ -43,14 +43,14 @@ void call(String[] stagesToRun) {
         }
     }
 
-    if (stagesToRun.includes(stageTestRun)) {
+    if (stagesToRun.contains(stageTestRun)) {
         stage(stageTestRun) {
             CURRENT_STAGE = stageTestRun
             sh 'curl -X GET http://localhost:8081/rest/mscovid/test?msg=testing'
         }
     }
 
-    if (stagesToRun.includes(stageNexus)) {
+    if (stagesToRun.contains(stageNexus)) {
         stage(stageNexus) {
             CURRENT_STAGE = stageNexus
             nexusPublisher nexusInstanceId: 'nexus3-docker',
