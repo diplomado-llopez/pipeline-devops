@@ -12,7 +12,7 @@ void call(String[] stagesToRun) {
         stageRun,
         stageTestRun,
         stageNexus
-    ]
+    ].toArray()
 
     if (stagesToRun.size() == 0) {
         stagesToRun = stages
