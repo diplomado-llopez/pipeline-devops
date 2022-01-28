@@ -12,12 +12,10 @@ void call(String[] stagesToRun) {
         stageRun,
         stageTestRun,
         stageNexus
-    ].toArray()
+    ]
 
     if (stagesToRun.size() == 0) {
         stagesToRun = stages
-    } else if (stages.intersect(stagesToRun).size() == stagesToRun.size()) {
-        throw new Exception('Al menos una stage es inválida. Stages válidas: ' + stages.join(', ') + '. Recibe: ' + stagesToRun.join(', '))
     }
 
     if (stagesToRun.includes(stageBuild)) {
