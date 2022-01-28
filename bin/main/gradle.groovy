@@ -6,13 +6,7 @@ void call(String[] stagesToRun) {
     String stageTestRun = 'test run'
     String stageNexus = 'nexus'
 
-    String[] stages = [
-        'build',
-        'sonar',
-        'run',
-        'test run',
-        'nexus'
-    ]
+    String[] stages = ['build', 'sonar', 'run', 'test run', 'nexus'] as String[]
 
     if (stagesToRun.size() == 0) {
         stagesToRun = stages
