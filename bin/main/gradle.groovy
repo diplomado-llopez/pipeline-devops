@@ -1,25 +1,21 @@
 
-void call(String[] stagesToRun) {
+void call(String[] stagestoRun) {
     String stageBuild = 'build'
     String stageSonar = 'sonar'
     String stageRun = 'run'
     String stageTestRun = 'test run'
     String stageNexus = 'nexus'
 
-    String[] stages = ['build', 'sonar', 'run', 'test run', 'nexus'] as String[]
+    String[] stages = ["build", "sonar", "run", "test run", "nexus"] as String[]
 
-    if (stagesToRun.size() == 0) {
-        stagesToRun = stages
-    }
-
-    if (stagesToRun.includes(stageBuild)) {
+    if (stages.includes(stageBuild)) {
         stage(stageBuild) {
             CURRENT_STAGE = stageBuild
             sh './gradlew clean build'
         }
     }
 
-    if (stagesToRun.includes(stageSonar)) {
+    if (stages.includes(stageSonar)) {
         stage(stageSonar) {
             CURRENT_STAGE = stageSonar
             String scannerHome = tool 'sonar-scanner'
@@ -29,7 +25,7 @@ void call(String[] stagesToRun) {
         }
     }
 
-    if (stagesToRun.includes(stageRun)) {
+    if (stages.includes(stageRun)) {
         stage(stageRun) {
             CURRENT_STAGE = stageRun
             sh './gradlew bootRun &'
@@ -37,14 +33,14 @@ void call(String[] stagesToRun) {
         }
     }
 
-    if (stagesToRun.includes(stageTestRun)) {
+    if (stages.includes(stageTestRun)) {
         stage(stageTestRun) {
             CURRENT_STAGE = stageTestRun
             sh 'curl -X GET http://localhost:8081/rest/mscovid/test?msg=testing'
         }
     }
 
-    if (stagesToRun.includes(stageNexus)) {
+    if (stages.includes(stageNexus)) {
         stage(stageNexus) {
             CURRENT_STAGE = stageNexus
             nexusPublisher nexusInstanceId: 'nexus3-docker',
