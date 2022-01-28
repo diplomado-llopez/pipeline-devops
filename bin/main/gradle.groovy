@@ -7,11 +7,11 @@ void call(String[] stagesToRun) {
     String stageNexus = 'nexus'
 
     String[] stages = [
-        stageBuild,
-        stageSonar,
-        stageRun,
-        stageTestRun,
-        stageNexus
+        'build',
+        'sonar',
+        'run',
+        'test run',
+        'nexus'
     ]
 
     if (stagesToRun.size() == 0) {
