@@ -14,10 +14,9 @@ void call() {
                 steps {
                     script {
                         String[] mySteps = params.stage.split(';')
-                        
-                        for( String values : mySteps ) {
-                            figlet values
-                        }
+                        // si es '', mySteps[0] = ''
+                        // si 'test' solo un valor mySteps[0] = 'valor'
+                        // si 'buid;test' solo un valor mySteps[0] = 'build'
 
                         if (params.buildTool == 'maven') {
                             maven.call(mySteps)

@@ -16,10 +16,7 @@ void call(String[] stagesToRun) {
 
     String[] currentStages = []
 
-    figlet stagesToRun.size().toString()
-    figlet stagesToRun[0]
-
-    if (stagesToRun.size() == 0) {
+    if (stagesToRun.size() == 1 && stagesToRun[0] == '') {
         currentStages = stages
     } else {
         currentStages = stagesToRun
