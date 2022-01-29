@@ -13,10 +13,16 @@ void call() {
             stage('pipeline') {
                 steps {
                     script {
+                        String [] steps = params.stage.split(';')
+                        
+                        for( String values : str ) {
+                            println(values)
+                        }
+
                         if (params.buildTool == 'maven') {
-                            maven.call(params.stage.split(';'))
+                            maven.call(steps)
                         } else {
-                            gradle.call(params.stage.split(';'))
+                            gradle.call(steps)
                         }
                     }
                 }
