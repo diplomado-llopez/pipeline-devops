@@ -20,8 +20,8 @@ void call(String[] stagesToRun) {
         currentStages = stages
     }
 
-    if (currentStages.contains(stageBuild)) {
-        stage(stageBuild) {
+    stage(stageBuild) {
+        if (currentStages.contains(stageBuild)) {
             CURRENT_STAGE = stageBuild
             sh './gradlew clean build'
         }
