@@ -16,7 +16,7 @@ void call() {
                         String [] steps = params.stage.split(';')
                         
                         for( String values : steps ) {
-                            println(values)
+                            figlet values
                         }
 
                         if (params.buildTool == 'maven') {
