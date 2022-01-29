@@ -26,7 +26,7 @@ void call(String[] stagesToRun) {
         throw new Exception('Al menos una stage es inválida. Stages válidas: ' + stages.join(', ') + '. Recibe: ' + currentStages.join(', '))
     }
 
-    if (stagesToRun.contains(stageBuild)) {
+    if (currentStages.contains(stageBuild)) {
         stage(stageBuild) {
             CURRENT_STAGE = stageBuild
             sh './mvnw clean compile -e'
@@ -35,7 +35,7 @@ void call(String[] stagesToRun) {
         }
     }
 
-    if (stagesToRun.contains(stageSonar)) {
+    if (currentStages.contains(stageSonar)) {
         stage(stageSonar) {
             CURRENT_STAGE = stageSonar
             def scannerHome = tool 'sonar-scanner'
@@ -45,7 +45,7 @@ void call(String[] stagesToRun) {
         }
     }
 
-    if (stagesToRun.contains(stageRun)) {
+    if (currentStages.contains(stageRun)) {
         stage(stageRun) {
             CURRENT_STAGE = stageRun
             sh './mvnw spring-boot:run &'
@@ -53,14 +53,14 @@ void call(String[] stagesToRun) {
         }
     }
 
-    if (stagesToRun.contains(stageTestRun)) {
+    if (currentStages.contains(stageTestRun)) {
         stage(stageTestRun) {
             CURRENT_STAGE = stageTestRun
             sh 'curl -X GET http://localhost:8081/rest/mscovid/test?msg=testing'
         }
     }
 
-    if (stagesToRun.contains(stageNexus)) {
+    if (currentStages.contains(stageNexus)) {
         stage(stageNexus) {
             CURRENT_STAGE = stageNexus
             nexusPublisher nexusInstanceId: 'nexus3-docker',
