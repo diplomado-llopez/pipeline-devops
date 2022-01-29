@@ -1,5 +1,5 @@
 
-void call() {
+void call(String[] stagesToRun) {
     String stageBuild = 'build'
     String stageSonar = 'sonar'
     String stageRun = 'run'

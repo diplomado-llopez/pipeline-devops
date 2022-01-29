@@ -2,7 +2,7 @@ void call() {
     pipeline {
         agent any
         environment {
-            CURRENT_STAGE = 'inicio'
+            CURRENT_STAGE = ''
         }
 
         parameters {
@@ -14,9 +14,6 @@ void call() {
                 steps {
                     script {
                         String[] mySteps = params.stage.split(';')
-                        // si es '', mySteps[0] = ''
-                        // si 'test' solo un valor mySteps[0] = 'valor'
-                        // si 'buid;test' solo un valor mySteps[0] = 'build'
 
                         if (params.buildTool == 'maven') {
                             maven.call(mySteps)
