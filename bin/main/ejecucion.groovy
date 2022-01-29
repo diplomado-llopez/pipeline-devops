@@ -15,7 +15,7 @@ void call() {
                     script {
                         String [] steps = params.stage.split(';')
                         
-                        for( String values : str ) {
+                        for( String values : steps ) {
                             println(values)
                         }
 
