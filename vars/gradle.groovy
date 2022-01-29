@@ -20,16 +20,15 @@ void call(String[] stagesToRun) {
         currentStages = stages
     }
 
-    stage(stageBuild) {
-        when { expression { return currentStages.contains(stageBuild) } }
-        steps {
+    if (currentStages.contains(stageBuild)) {
+        stage(stageBuild) {
             CURRENT_STAGE = stageBuild
             sh './gradlew clean build'
         }
     }
 
-    stage(stageSonar) {
-        if (currentStages.contains(stageSonar)) {
+    if (currentStages.contains(stageSonar)) {
+        stage(stageSonar) {
             CURRENT_STAGE = stageSonar
             String scannerHome = tool 'sonar-scanner'
             withSonarQubeEnv('docker-compose-sonarqube') {
