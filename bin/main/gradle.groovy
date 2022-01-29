@@ -22,6 +22,10 @@ void call(String[] stagesToRun) {
         currentStages = stagesToRun
     }
 
+    if (stages.findAll { e -> currentStages.contains( e ) }.size() == 0) {
+        throw new Exception('Al menos una stage es inválida. Stages válidas: ' + stages.join(', ') + '. Recibe: ' + currentStages.join(', '))
+    }
+
     if (currentStages.contains(stageBuild)) {
         stage(stageBuild) {
             CURRENT_STAGE = stageBuild

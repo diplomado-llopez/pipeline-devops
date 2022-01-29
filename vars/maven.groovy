@@ -14,10 +14,16 @@ void call() {
         stageNexus
     ]
 
-    if (stagesToRun.size() == 0) {
-        stagesToRun = stages
-    } else if (stages.intersect(stagesToRun).size() == stagesToRun.size()) {
-        throw new Exception('Al menos una stage es inválida. Stages válidas: ' + stages.join(', ') + '. Recibe: ' + stagesToRun.join(', '))
+    String[] currentStages = []
+
+    if (stagesToRun.size() == 1 && stagesToRun[0] == '') {
+        currentStages = stages
+    } else {
+        currentStages = stagesToRun
+    }
+
+    if (stages.findAll { e -> currentStages.contains( e ) }.size() == 0) {
+        throw new Exception('Al menos una stage es inválida. Stages válidas: ' + stages.join(', ') + '. Recibe: ' + currentStages.join(', '))
     }
 
     if (stagesToRun.contains(stageBuild)) {
