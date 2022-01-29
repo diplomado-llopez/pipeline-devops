@@ -21,10 +21,9 @@ void call(String[] stagesToRun) {
     }
 
     stage(stageBuild) {
-        if (currentStages.contains(stageBuild)) {
-            CURRENT_STAGE = stageBuild
-            sh './gradlew clean build'
-        }
+        when { equals expected: true, actual: currentStages.contains(stageBuild) }
+        CURRENT_STAGE = stageBuild
+        sh './gradlew clean build'
     }
 
     stage(stageSonar) {
