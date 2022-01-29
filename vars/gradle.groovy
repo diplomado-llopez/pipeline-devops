@@ -27,8 +27,8 @@ void call(String[] stagesToRun) {
         }
     }
 
-    if (currentStages.contains(stageSonar)) {
-        stage(stageSonar) {
+    stage(stageSonar) {
+        if (currentStages.contains(stageSonar)) {
             CURRENT_STAGE = stageSonar
             String scannerHome = tool 'sonar-scanner'
             withSonarQubeEnv('docker-compose-sonarqube') {
@@ -37,23 +37,23 @@ void call(String[] stagesToRun) {
         }
     }
 
-    if (currentStages.contains(stageRun)) {
-        stage(stageRun) {
+    stage(stageRun) {
+        if (currentStages.contains(stageRun)) {
             CURRENT_STAGE = stageRun
             sh './gradlew bootRun &'
             sleep 20
         }
     }
 
-    if (currentStages.contains(stageTestRun)) {
-        stage(stageTestRun) {
+    stage(stageTestRun) {
+        if (currentStages.contains(stageTestRun)) {
             CURRENT_STAGE = stageTestRun
             sh 'curl -X GET http://localhost:8081/rest/mscovid/test?msg=testing'
         }
     }
 
-    if (currentStages.contains(stageNexus)) {
-        stage(stageNexus) {
+    stage(stageNexus) {
+        if (currentStages.contains(stageNexus)) {
             CURRENT_STAGE = stageNexus
             nexusPublisher nexusInstanceId: 'nexus3-docker',
         nexusRepositoryId: 'ejemplo-gradle',
