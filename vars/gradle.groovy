@@ -20,6 +20,8 @@ void call(String[] stagesToRun) {
 
     if (stagesToRun.size() == 0) {
         currentStages = stages
+    } else {
+        currentStages = stagesToRun
     }
 
     if (currentStages.contains(stageBuild)) {
