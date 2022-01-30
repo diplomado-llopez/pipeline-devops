@@ -13,12 +13,10 @@ void call() {
             stage('pipeline') {
                 steps {
                     script {
-                        String[] mySteps = params.stage.split(';')
-
                         if (params.buildTool == 'maven') {
-                            maven.call(mySteps)
+                            maven.call(getStepsToRun(), getPipelineType())
                         } else {
-                            gradle.call(mySteps)
+                            gradle.call(getStepsToRun(), getPipelineType())
                         }
                     }
                 }
@@ -32,6 +30,19 @@ void call() {
                 slackSend(color: '#FF0000', message: '[gamboa][' + env.JOB_NAME + '][' + params.buildTool + '] Ejecución Fallida en Stage [' + CURRENT_STAGE + '].')
             }
         }
+    }
+}
+
+String[] getStepsToRun() {
+    String[] stepsToRun = params.stage.split(';')
+    return stepsToRun
+}
+
+String getPipelineType() {
+    if (env.GIT_BRANCH.contains('feature-') || env.GIT_BRANCH.contains('develop')) {
+        return 'CI'
+    } else {
+        return 'CD'
     }
 }
 
