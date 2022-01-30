@@ -43,7 +43,7 @@ void runCd(String[] stagesToRun) {
             CURRENT_STAGE = downloadNexus
             figlet CURRENT_STAGE
             withCredentials([usernameColonPassword(credentialsId: 'nexus3-docker-user', variable: 'NEXUS_CREDENTIALS')]) {
-                sh 'curl -u ${NEXUS_CREDENTIALS} "http://nexus.localhost/repository/test-repo/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar" -O'
+                sh 'curl -u ${NEXUS_CREDENTIALS} "http://nexus.localhost:8081/repository/test-repo/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar" -O'
             }
         }
     }
