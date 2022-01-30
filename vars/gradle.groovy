@@ -156,8 +156,8 @@ void runCi(String[] stagesToRun) {
         stage(stageNexus) {
             CURRENT_STAGE = stageNexus
             figlet CURRENT_STAGE
-            nexusPublisher nexusInstanceId: myNexusInstanceId,
-            nexusRepositoryId: myNexusRepository,
+            nexusPublisher nexusInstanceId: NEXUS_INSTANCE_ID,
+            nexusRepositoryId: NEXUS_REPOSITORY,
             packages: [
                 [
                     $class: 'MavenPackage',
