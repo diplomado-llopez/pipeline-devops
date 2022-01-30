@@ -1,7 +1,4 @@
 
-String myNexusInstanceId = 'nexus3-docker'
-String myNexusRepository = 'test-repo'
-
 void call(String[] stagesToRun, String pipelineType) {
 
     figlet 'Gradle'
@@ -72,8 +69,8 @@ void runCd(String[] stagesToRun) {
         stage(nexusCD) {
             CURRENT_STAGE = nexusCD
             figlet CURRENT_STAGE
-            nexusPublisher nexusInstanceId: myNexusInstanceId,
-            nexusRepositoryId: myNexusRepository,
+            nexusPublisher nexusInstanceId: NEXUS_INSTANCE_ID,
+            nexusRepositoryId: NEXUS_REPOSITORY,
             packages: [
                 [
                     $class: 'MavenPackage',

@@ -3,6 +3,8 @@ void call() {
         agent any
         environment {
             CURRENT_STAGE = ''
+            NEXUS_INSTANCE_ID = 'nexus3-docker'
+            NEXUS_REPOSITORY = 'test-repo'
         }
 
         parameters {
