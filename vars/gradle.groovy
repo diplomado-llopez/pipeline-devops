@@ -87,6 +87,69 @@ void runCd(String[] stagesToRun) {
             ]
         }
     }
+
+    stage('Deploy QA') {
+        STAGE = env.STAGE_NAME
+        figlet "Stage: ${env.STAGE_NAME}"
+
+        println "${env.STAGE_NAME} realizado con exito"
+    }
+
+    stage('Test QA') {
+        STAGE = env.STAGE_NAME
+        figlet "Stage: ${env.STAGE_NAME}"
+
+        println "${env.STAGE_NAME} realizado con exito"
+    }
+
+    input 'Aprobacion para despliegue en Produccion'
+
+    stage('Deploy PROD') {
+        STAGE = env.STAGE_NAME
+        figlet "Stage: ${env.STAGE_NAME}"
+
+        println "${env.STAGE_NAME} realizado con exito"
+    }
+    
+    stage('Test PROD') {
+        STAGE = env.STAGE_NAME
+        figlet "Stage: ${env.STAGE_NAME}"
+
+        println "${env.STAGE_NAME} realizado con exito"
+    }
+
+    stage('Merge to Master') {
+        STAGE = env.STAGE_NAME
+        figlet "Stage: ${env.STAGE_NAME}"
+
+        def git = new helpers.Git()
+
+        sh 'env'
+        //git.merge("${env.GIT_BRANCH}",'main')
+
+        println "${env.STAGE_NAME} realizado con exito"
+    }
+
+    stage('Merge to Develop') {
+        STAGE = env.STAGE_NAME
+        figlet "Stage: ${env.STAGE_NAME}"
+
+        def git = new helpers.Git()
+        //git.merge("${env.GIT_BRANCH}",'develop')
+
+        println "${env.STAGE_NAME} realizado con exito"
+    }
+
+    stage('Tag to Master') {
+        STAGE = env.STAGE_NAME
+        figlet "Stage: ${env.STAGE_NAME}"
+
+        def git = new helpers.Git()
+        git.tag(env.GIT_BRANCH)
+
+        println "${env.STAGE_NAME} realizado con exito"
+    }
+
 }
 
 void runCi(String[] stagesToRun) {
