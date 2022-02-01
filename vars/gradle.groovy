@@ -125,7 +125,7 @@ void runCd(String[] stagesToRun) {
         def git = new helpers.Git()
 
         sh 'env'
-        //git.merge("${env.GIT_BRANCH}",'main')
+        git.merge("${env.GIT_LOCAL_BRANCH}",'main')
 
         println "${env.STAGE_NAME} realizado con exito"
     }
@@ -135,7 +135,7 @@ void runCd(String[] stagesToRun) {
         figlet "Stage: ${env.STAGE_NAME}"
 
         def git = new helpers.Git()
-        //git.merge("${env.GIT_BRANCH}",'develop')
+        git.merge("${env.GIT_LOCAL_BRANCH}",'develop')
 
         println "${env.STAGE_NAME} realizado con exito"
     }
@@ -145,7 +145,7 @@ void runCd(String[] stagesToRun) {
         figlet "Stage: ${env.STAGE_NAME}"
 
         def git = new helpers.Git()
-        git.tag(env.GIT_BRANCH)
+        git.tag(env.GIT_LOCAL_BRANCH)
 
         println "${env.STAGE_NAME} realizado con exito"
     }
