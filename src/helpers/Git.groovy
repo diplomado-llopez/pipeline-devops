@@ -2,13 +2,13 @@ package helpers
 
 def merge(String ramaOrigen, String ramaDestino) {
 
-    sh "git fetch --all"
-
-    checkout(ramaOrigen)
-
-    checkout(ramaDestino)
-
     withCredentials([gitUsernamePassword(credentialsId: 'jenkins-gh-ganvoa', gitToolName: 'Default')]) {
+        sh "git fetch --all"
+
+        checkout(ramaOrigen)
+
+        checkout(ramaDestino)
+
         sh """
             git merge ${ramaOrigen}
             git push origin ${ramaDestino}
