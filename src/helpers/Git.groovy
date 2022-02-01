@@ -11,12 +11,9 @@ def merge(String ramaOrigen, String ramaDestino) {
     withCredentials([usernamePassword(credentialsId: 'jenkins-gh-ganvoa', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
         sh '''
             printf "machine github.com\nlogin $GIT_USERNAME\n password $GIT_PASSWORD" >> ~/.netrc
-        '''
-
-        sh """
             git merge ${ramaOrigen}
             git push origin ${ramaDestino}
-        """
+        '''
     }
 }
 

@@ -124,7 +124,6 @@ void runCd(String[] stagesToRun) {
 
         def git = new helpers.Git()
 
-        sh 'env'
         git.merge("${env.GIT_LOCAL_BRANCH}",'main')
 
         println "${env.STAGE_NAME} realizado con exito"
