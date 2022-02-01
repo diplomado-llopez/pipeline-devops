@@ -8,9 +8,8 @@ def merge(String ramaOrigen, String ramaDestino) {
 
     checkout(ramaDestino)
 
-    withCredentials([usernamePassword(credentialsId: 'jenkins-gh-ganvoa', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+    withCredentials([usernamePassword(credentialsId: 'jenkins-gh-ganvoa', gitToolName: 'git-tool')]) {
         sh '''
-            printf "machine github.com\nlogin $GIT_USERNAME\n password $GIT_PASSWORD" >> ~/.netrc
             git merge ${ramaOrigen}
             git push origin ${ramaDestino}
         '''
