@@ -8,7 +8,7 @@ def merge(String ramaOrigen, String ramaDestino) {
 
     checkout(ramaDestino)
 
-    withCredentials([usernamePassword(credentialsId: 'jenkins-gh-ganvoa', gitToolName: 'Default')]) {
+    withCredentials([usernamePassword(credentialsId: 'jenkins-gh-ganvoa')]) {
         sh '''
             git merge ${ramaOrigen}
             git push origin ${ramaDestino}
