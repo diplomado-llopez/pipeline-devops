@@ -2,6 +2,8 @@ package helpers
 
 def merge(String ramaOrigen, String ramaDestino) {
 
+    sh "git fetch --all"
+
     checkout(ramaOrigen)
 
     checkout(ramaDestino)
