@@ -17,8 +17,7 @@ void call( String buildTool = "maven" ) {
                         if (buildTool == 'maven') {
                             maven.call(getPipelineType())
                         } else {
-                            gradle.call(
-                                getPipelineType())
+                            gradle.call(getPipelineType())
                         }
                     }
                 }

@@ -1,4 +1,4 @@
-void call(String[] stagesToRun, String pipelineType) {
+void call(String pipelineType) {
 
     figlet 'Maven'
     figlet pipelineType
