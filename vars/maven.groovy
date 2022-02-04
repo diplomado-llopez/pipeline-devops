@@ -136,8 +136,8 @@ void runCi() {
             stageBuild,
             stageTest,
             stageRun,
-            stageSonar
-            stageNexus,
+            stageSonar,
+            stageNexus
             // stageCreateRelease  ****Falta implementar Stage
         ]
     }
