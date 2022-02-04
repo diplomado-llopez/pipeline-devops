@@ -4,9 +4,9 @@ void call(String pipelineType) {
     figlet pipelineType
 
     if (pipelineType.contains('CI-')) {
-        runCi()
+        runCi(pipelineType)
     } else if (pipelineType == 'CD') {
-        runCd()
+        runCd(pipelineType)
     } else {
         throw new Exception('PipelineType Inválido: ' + pipelineType)
     }
@@ -115,7 +115,7 @@ void runCd() {
 }
 
 
-void runCi() {
+void runCi(String pipelineType) {
     String stageBuild = 'compile'
     String stageTest = 'unitTest'
     String stageSonar = 'sonar'
