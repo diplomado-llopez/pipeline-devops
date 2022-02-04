@@ -29,7 +29,7 @@ void call( String buildTool = "maven" ) {
                 slackSend(color: '#00FF00', message: '[gamboa][' + env.JOB_NAME + '][' + buildTool + '] Ejecución Exitosa.')
             }
             failure {
-                slackSend(color: '#FF0000', message: '[gamboa][' + env.JOB_NAME + '][' + buildTool + '] Ejecución Fallida en Stage [' + CURRENT_STAGE + '].')
+                slackSend(color: '#FF0000', message: '[gamboa][' + env.JOB_NAME + '][' + buildTool + '] Ejecución Fallida en Stage [' + env.CURRENT_STAGE + '].')
             }
         }
     }
