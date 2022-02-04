@@ -13,16 +13,22 @@ void call(String[] stagesToRun, String pipelineType) {
 }
 
 void runCd(String[] stagesToRun) {
-    String downloadNexus = 'downloadNexus'
-    String runDownloadedJar = 'runDownloadedJar'
-    String rest = 'rest'
-    String nexusCD = 'nexusCD'
+    String gitDiff         = "gitDiff"
+    String nexusDownload   = 'nexusDownload'
+    String run             = "run"
+    String test            = "test"
+    String gitMergeMaster  = 'gitMergeMaster'
+    String gitMergeDevelop = 'gitMergeDevelop'
+    String gitTagMaster    = 'gitTagMaster'
 
     String[] stages = [
-        downloadNexus,
-        runDownloadedJar,
-        rest,
-        nexusCD
+        gitDiff,
+        nexusDownload,
+        run,
+        test,
+        gitMergeMaster,
+        gitMergeDevelop,
+        gitTagMaster
     ]
 
     String[] currentStages = []
@@ -37,53 +43,77 @@ void runCd(String[] stagesToRun) {
         throw new Exception('Al menos una stage es inválida. Stages válidas: ' + stages.join(', ') + '. Recibe: ' + currentStages.join(', '))
     }
 
-    if (currentStages.contains(downloadNexus)) {
-        stage(downloadNexus) {
-            CURRENT_STAGE = downloadNexus
+    // gitDiff
+    if (currentStages.contains(gitDiff)) {
+        stage(gitDiff) {
+            CURRENT_STAGE = gitDiff
+            figlet CURRENT_STAGE
+            // TODO: definir stage
+        }
+    }
+
+    // nexusDownload
+    if (currentStages.contains(nexusDownload)) {
+        stage(nexusDownload) {
+            CURRENT_STAGE = nexusDownload
             figlet CURRENT_STAGE
             withCredentials([usernameColonPassword(credentialsId: env.NEXUS_CRED, variable: 'NEXUS_CREDENTIALS')]) {
                 sh 'curl -u ${NEXUS_CREDENTIALS} "${env.NEXUS_URL}/repository/${env.NEXUS_REPO_NAME}/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar" -O'
             }
         }
     }
-
-    if (currentStages.contains(runDownloadedJar)) {
-        stage(runDownloadedJar) {
-            CURRENT_STAGE = runDownloadedJar
+    
+    // run
+    if (currentStages.contains(run)) {
+        stage(run) {
+            CURRENT_STAGE = run
             figlet CURRENT_STAGE
             sh 'java -jar DevOpsUsach2020-0.0.1.jar &'
             sleep 20
         }
     }
-
-    if (currentStages.contains(rest)) {
-        stage(rest) {
-            CURRENT_STAGE = rest
+    
+    // test
+    if (currentStages.contains(test)) {
+        stage(test) {
+            CURRENT_STAGE = test
             figlet CURRENT_STAGE
             sh 'curl -X GET http://localhost:8081/rest/mscovid/test?msg=testing'
         }
     }
 
-    if (currentStages.contains(nexusCD)) {
-        stage(nexusCD) {
-            CURRENT_STAGE = nexusCD
+    // gitMergeMaster
+    if (currentStages.contains(gitMergeMaster)) {
+        stage(gitMergeMaster) {
+            CURRENT_STAGE = gitMergeMaster
             figlet CURRENT_STAGE
-            nexusPublisher nexusInstanceId: env.NEXUS_INSTANCE_ID,
-            nexusRepositoryId: env.NEXUS_REPO_NAME,
-            packages: [
-                [
-                    $class: 'MavenPackage',
-                    mavenAssetList: [
-                        [classifier: '', extension: '', filePath: 'DevOpsUsach2020-0.0.1.jar']
-                    ],
-                    mavenCoordinate: [
-                        artifactId: 'DevOpsUsach2020',
-                        groupId: 'com.devopsusach2020',
-                        packaging: 'jar',
-                        version: '1.0.0'
-                    ]
-                ]
-            ]
+            // TODO: definir stage
+            // def git = new helpers.Git()
+            // git.merge("${env.GIT_LOCAL_BRANCH}",'main')
+            // println "${env.STAGE_NAME} realizado con exito"
+        }
+    }
+    
+    // gitMergeDevelop
+    if (currentStages.contains(gitMergeDevelop)) {
+        stage(gitMergeDevelop) {
+            CURRENT_STAGE = gitMergeDevelop
+            figlet CURRENT_STAGE
+            // TODO: definir stage
+            // def git = new helpers.Git()
+            // git.merge("${env.GIT_LOCAL_BRANCH}",'develop')
+            // println "${env.STAGE_NAME} realizado con exito"
+        }
+    }
+    
+    // gitTagMaster
+    if (currentStages.contains(gitTagMaster)) {
+        stage(gitTagMaster) {
+            CURRENT_STAGE = gitTagMaster
+            figlet CURRENT_STAGE
+            // TODO: definir stage
+            // git.tag(env.GIT_LOCAL_BRANCH)
+            // println "${env.STAGE_NAME} realizado con exito"
         }
     }
 }
