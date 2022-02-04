@@ -42,7 +42,7 @@ String[] getStepsToRun() {
 }
 */
 String getPipelineType() {
-    if (env.GIT_BRANCH.contains('feature-')
+    if (env.GIT_BRANCH.contains('feature-'))
         return 'CI-Feature'
     else if (env.GIT_BRANCH.equals('develop'))
         return 'CI-Develop'
