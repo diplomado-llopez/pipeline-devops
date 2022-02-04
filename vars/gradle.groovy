@@ -42,8 +42,8 @@ void runCd(String[] stagesToRun) {
         stage(downloadNexus) {
             CURRENT_STAGE = downloadNexus
             figlet CURRENT_STAGE
-            withCredentials([usernameColonPassword(credentialsId: 'nexus3-docker-user', variable: 'NEXUS_CREDENTIALS')]) {
-                sh 'curl -u ${NEXUS_CREDENTIALS} "http://nexus.localhost:8081/repository/test-repo/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar" -O'
+            withCredentials([usernameColonPassword(credentialsId: env.NEXUS_CRED, variable: 'NEXUS_CREDENTIALS')]) {
+                sh 'curl -u ${NEXUS_CREDENTIALS} "${env.NEXUS_URL}/repository/${env.NEXUS_REPO_NAME}/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar" -O'
             }
         }
     }
@@ -69,8 +69,8 @@ void runCd(String[] stagesToRun) {
         stage(nexusCD) {
             CURRENT_STAGE = nexusCD
             figlet CURRENT_STAGE
-            nexusPublisher nexusInstanceId: NEXUS_INSTANCE_ID,
-            nexusRepositoryId: NEXUS_REPOSITORY,
+            nexusPublisher nexusInstanceId: env.NEXUS_INSTANCE_ID,
+            nexusRepositoryId: env.NEXUS_REPO_NAME,
             packages: [
                 [
                     $class: 'MavenPackage',
@@ -191,7 +191,7 @@ void runCi(String[] stagesToRun) {
             CURRENT_STAGE = stageSonar
             figlet CURRENT_STAGE
             String scannerHome = tool 'sonar-scanner'
-            withSonarQubeEnv('docker-compose-sonarqube') {
+            withSonarQubeEnv( env.SONAR_SERVER_NAME ) {
                 sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=ejemplo-gradle -Dsonar.sources=src -Dsonar.java.binaries=build"
             }
         }
@@ -218,8 +218,8 @@ void runCi(String[] stagesToRun) {
         stage(stageNexus) {
             CURRENT_STAGE = stageNexus
             figlet CURRENT_STAGE
-            nexusPublisher nexusInstanceId: NEXUS_INSTANCE_ID,
-            nexusRepositoryId: NEXUS_REPOSITORY,
+            nexusPublisher nexusInstanceId: env.NEXUS_INSTANCE_ID,
+            nexusRepositoryId: env.NEXUS_REPO_NAME,
             packages: [
                 [
                     $class: 'MavenPackage',

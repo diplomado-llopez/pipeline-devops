@@ -1,21 +1,18 @@
-void call() {
+void call( String buildTool = "maven" ) {
     pipeline {
         agent any
         environment {
             CURRENT_STAGE = ''
-            NEXUS_INSTANCE_ID = 'nexus3-docker'
-            NEXUS_REPOSITORY = 'test-repo'
         }
 
         parameters {
-            choice choices: ['gradle', 'maven'], description: 'indicar la herramienta de construcción', name: 'buildTool'
             string defaultValue: '', description: 'Stages a ejecutar', name: 'stage'
         }
         stages {
             stage('pipeline') {
                 steps {
                     script {
-                        if (params.buildTool == 'maven') {
+                        if (buildTool == 'maven') {
                             maven.call(getStepsToRun(), getPipelineType())
                         } else {
                             gradle.call(getStepsToRun(), getPipelineType())
@@ -26,10 +23,10 @@ void call() {
         }
         post {
             success {
-                slackSend(color: '#00FF00', message: '[gamboa][' + env.JOB_NAME + '][' + params.buildTool + '] Ejecución Exitosa.')
+                slackSend(color: '#00FF00', message: '[gamboa][' + env.JOB_NAME + '][' + buildTool + '] Ejecución Exitosa.')
             }
             failure {
-                slackSend(color: '#FF0000', message: '[gamboa][' + env.JOB_NAME + '][' + params.buildTool + '] Ejecución Fallida en Stage [' + CURRENT_STAGE + '].')
+                slackSend(color: '#FF0000', message: '[gamboa][' + env.JOB_NAME + '][' + buildTool + '] Ejecución Fallida en Stage [' + CURRENT_STAGE + '].')
             }
         }
     }
