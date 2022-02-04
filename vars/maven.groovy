@@ -1,6 +1,6 @@
 void call(String[] stagesToRun, String pipelineType) {
 
-    figlet 'Gradle'
+    figlet 'Maven'
     figlet pipelineType
 
     if (pipelineType == 'CI') {
