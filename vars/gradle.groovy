@@ -123,9 +123,10 @@ void runCi() {
     String stageRun = 'runJar'
     String stageTestRun = 'rest'
     String stageNexus = 'nexusCI'
+    String[] stages = []
 
     if (pipelineType == 'CI-Feature'){
-        String[] stages = [
+        stages = [
             stageBuild,
             stageRun,
             stageSonar,
@@ -133,7 +134,7 @@ void runCi() {
         ]
     }else if (pipelineType == 'CI-Develop')
     {
-            String[] stages = [
+        stages = [
             stageBuild,
             stageRun,
             stageSonar,
@@ -142,11 +143,8 @@ void runCi() {
         ]
     }
 
-    String[] currentStages = []
-
-        currentStages = stages
+    String[] currentStages = stages
  
-
     if (stages.findAll { e -> currentStages.contains( e ) }.size() == 0) {
         throw new Exception('Al menos una stage es inválida. Stages válidas: ' + stages.join(', ') + '. Recibe: ' + currentStages.join(', '))
     }

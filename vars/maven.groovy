@@ -1,7 +1,8 @@
 void call(String pipelineType) {
 
     figlet 'Maven'
-
+    figlet pipelineType
+    
     if (pipelineType.contains('CI-')) {
         runCi(pipelineType)
     } else if (pipelineType == 'CD') {
@@ -141,7 +142,7 @@ void runCi(String pipelineType) {
             // stageCreateRelease  ****Falta implementar Stage
         ]
     }
-    figlet pipelineType
+    
     String[] currentStages = stages
 
     if (stages.findAll { e -> currentStages.contains( e ) }.size() == 0) {
