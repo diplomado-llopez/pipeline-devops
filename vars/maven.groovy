@@ -216,7 +216,7 @@ void runCi(String pipelineType) {
             CURRENT_STAGE = stageCreateRelease
             figlet CURRENT_STAGE
             // TODO: definir stage
-             git.checkout("release-v1.0.0")
+             git checkout -b "release-v1.0.0"
              println "${env.STAGE_NAME} realizado con exito"
         }
     }
