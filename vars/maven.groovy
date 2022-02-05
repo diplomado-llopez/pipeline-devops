@@ -2,7 +2,7 @@ void call(String pipelineType) {
 
     figlet 'Maven'
     figlet pipelineType
-    
+
     if (pipelineType.contains('CI-')) {
         runCi(pipelineType)
     } else if (pipelineType == 'CD') {
@@ -122,6 +122,7 @@ void runCi(String pipelineType) {
     String stageRun = 'runJar'
     String stageTestRun = 'rest'
     String stageNexus = 'nexusCI'
+    String stageCreateRelease = 'gitCreateRelease'
     String[] stages = []
 
     if (pipelineType == 'CI-Feature'){
@@ -138,8 +139,8 @@ void runCi(String pipelineType) {
             stageTest,
             stageRun,
             stageSonar,
-            stageNexus
-            // stageCreateRelease  ****Falta implementar Stage
+            stageNexus,
+            stageCreateRelease
         ]
     }
     
@@ -189,7 +190,7 @@ void runCi(String pipelineType) {
         }
     }
 
-    if (currentStages.contains(stageNexus)) {
+  /*  if (currentStages.contains(stageNexus)) {
         stage(stageNexus) {
             CURRENT_STAGE = stageNexus
             nexusPublisher nexusInstanceId: env.NEXUS_INSTANCE_ID,
@@ -208,6 +209,15 @@ void runCi(String pipelineType) {
                 ]
             ]
         ]
+        }
+    }*/
+        if (currentStages.contains(stageCreateRelease)) {
+        stage(stageCreateRelease) {
+            CURRENT_STAGE = stageCreateRelease
+            figlet CURRENT_STAGE
+            // TODO: definir stage
+             git.checkout("release-v1.0.0")
+             println "${env.STAGE_NAME} realizado con exito"
         }
     }
 }
