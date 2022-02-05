@@ -217,7 +217,7 @@ void runCi(String pipelineType) {
             figlet CURRENT_STAGE
             // TODO: definir stage
             def git = new helpers.Git()
-            git.release("release-v1.1.1")
+            git.release("release-v1.1.2")
              println "${env.STAGE_NAME} realizado con exito"
         }
     }

@@ -25,7 +25,7 @@ def checkout(String rama) {
 }
 
 def release(String rama) {
-    sh "git reset --hard HEAD; git checkout -b ${rama}; git pull origin develop"
+    sh "git reset --hard HEAD; git checkout -b ${rama}; git push origin ${rama}"
 }
 
 return this
