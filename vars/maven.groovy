@@ -1,7 +1,6 @@
 void call(String pipelineType) {
 
     figlet 'Maven'
-    figlet pipelineType
 
     if (pipelineType.contains('CI-')) {
         runCi(pipelineType)
@@ -141,11 +140,8 @@ void runCi(String pipelineType) {
             // stageCreateRelease  ****Falta implementar Stage
         ]
     }
-
-    String[] currentStages = []
-
-        currentStages = stages
-
+    figlet pipelineType
+    String[] currentStages = stages
 
     if (stages.findAll { e -> currentStages.contains( e ) }.size() == 0) {
         throw new Exception('Al menos una stage es inválida. Stages válidas: ' + stages.join(', ') + '. Recibe: ' + currentStages.join(', '))
