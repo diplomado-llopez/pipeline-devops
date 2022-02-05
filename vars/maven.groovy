@@ -121,9 +121,10 @@ void runCi(String pipelineType) {
     String stageRun = 'runJar'
     String stageTestRun = 'rest'
     String stageNexus = 'nexusCI'
+    String[] stages = []
 
     if (pipelineType == 'CI-Feature'){
-        String[] stages = [
+        stages = [
             stageBuild,
             stageTest,
             stageRun,
@@ -131,7 +132,7 @@ void runCi(String pipelineType) {
             stageNexus
        ]
     }else if (pipelineType == 'CI-Develop'){
-        String[] stages = [
+        stages = [
             stageBuild,
             stageTest,
             stageRun,
