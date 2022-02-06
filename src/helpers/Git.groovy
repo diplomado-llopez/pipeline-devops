@@ -16,8 +16,8 @@ def merge(String ramaOrigen, String ramaDestino) {
     }
 }
 
-def tag(String rama) {
-
+def tag(String version) {
+    sh "git checkout origin/main; git tag ${version}"
 }
 
 def checkout(String rama) {
@@ -29,7 +29,7 @@ def release(String version) {
     withCredentials([gitUsernamePassword(credentialsId: 'girhub-credentials-pass',
                  gitToolName: 'default')]){
                          sh "git reset --hard HEAD; git checkout -b release-${version}; git push origin release-${version}"
-                         sh "git checkout main; git tag ${version}"
+                         tag(version)
                  }
 
 }
