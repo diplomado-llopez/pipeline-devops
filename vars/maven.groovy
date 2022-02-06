@@ -189,7 +189,7 @@ void runCi(String pipelineType) {
             sh 'curl -X GET http://localhost:8081/rest/mscovid/test?msg=testing'
         }
     }
-
+/*
     if (currentStages.contains(stageNexus)) {
         stage(stageNexus) {
             CURRENT_STAGE = stageNexus
@@ -211,7 +211,7 @@ void runCi(String pipelineType) {
         ]
         }
     }
-    
+*/
         if (currentStages.contains(stageCreateRelease)) {
         stage(stageCreateRelease) {
             CURRENT_STAGE = stageCreateRelease
