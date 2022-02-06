@@ -17,7 +17,7 @@ def merge(String ramaOrigen, String ramaDestino) {
 }
 
 def tag(String version) {
-    sh "git remote update; git fetch --all; git branch --a; git checkout --track origin/main; git tag ${version}"
+    sh "git remote update; git fetch --all; git branch -a; git checkout --track origin/main; git tag ${version}"
 }
 
 def checkout(String rama) {
