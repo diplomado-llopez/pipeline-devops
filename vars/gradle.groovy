@@ -123,6 +123,7 @@ void runCi() {
     String stageRun = 'runJar'
     String stageTestRun = 'rest'
     String stageNexus = 'nexusCI'
+    String stageCreateRelease = 'gitCreateRelease'
     String[] stages = []
 
     if (pipelineType == 'CI-Feature'){
@@ -138,8 +139,8 @@ void runCi() {
             stageBuild,
             stageRun,
             stageSonar,
-            stageNexus
-        // stageCreateRelease  ****Falta implementar Stage
+            stageNexus,
+            stageCreateRelease 
         ]
     }
 
@@ -203,6 +204,18 @@ void runCi() {
                     ]
                 ]
             ]
+        }
+    }
+
+    if (currentStages.contains(stageCreateRelease)) {
+        stage(stageCreateRelease) {
+            CURRENT_STAGE = stageCreateRelease
+            figlet CURRENT_STAGE
+            // TODO: definir stage
+            def git = new helpers.Git()
+            String version = 'v1.2.1'
+            git.release(version)
+             println "${env.STAGE_NAME} realizado con exito"
         }
     }
 }

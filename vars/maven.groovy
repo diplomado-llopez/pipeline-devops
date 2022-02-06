@@ -190,7 +190,7 @@ void runCi(String pipelineType) {
         }
     }
 
-  /*  if (currentStages.contains(stageNexus)) {
+    if (currentStages.contains(stageNexus)) {
         stage(stageNexus) {
             CURRENT_STAGE = stageNexus
             nexusPublisher nexusInstanceId: env.NEXUS_INSTANCE_ID,
@@ -210,14 +210,15 @@ void runCi(String pipelineType) {
             ]
         ]
         }
-    }*/
+    
         if (currentStages.contains(stageCreateRelease)) {
         stage(stageCreateRelease) {
             CURRENT_STAGE = stageCreateRelease
             figlet CURRENT_STAGE
             // TODO: definir stage
             def git = new helpers.Git()
-            git.release("release-v1.1.4")
+            String version = 'v1.2.1'
+            git.release(version)
              println "${env.STAGE_NAME} realizado con exito"
         }
     }

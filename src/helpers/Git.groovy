@@ -24,10 +24,12 @@ def checkout(String rama) {
     sh "git reset --hard HEAD; git checkout ${rama}; git pull origin ${rama}"
 }
 
-def release(String rama) {
+def release(String version) {
+
     withCredentials([gitUsernamePassword(credentialsId: 'girhub-credentials-pass',
                  gitToolName: 'default')]){
-                         sh "git reset --hard HEAD; git checkout -b ${rama}; git push origin ${rama}"
+                         sh "git reset --hard HEAD; git checkout -b release-${version}; git push origin release-${version}"
+                         sh "git checkout main; git tag ${version}"
                  }
 
 }
