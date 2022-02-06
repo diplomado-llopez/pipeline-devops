@@ -210,6 +210,7 @@ void runCi(String pipelineType) {
             ]
         ]
         }
+    }
     
         if (currentStages.contains(stageCreateRelease)) {
         stage(stageCreateRelease) {
