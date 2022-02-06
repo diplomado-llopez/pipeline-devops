@@ -28,8 +28,9 @@ def release(String version) {
 
     withCredentials([gitUsernamePassword(credentialsId: 'girhub-credentials-pass',
                  gitToolName: 'default')]){
-                         sh "git reset --hard HEAD; git checkout -b release-${version}; git push origin release-${version}"
-                         tag(version)
+                         sh "git reset --hard HEAD; git checkout -b release-${version};git tag ${version}; git push origin release-${version}"
+                      
+                      //   tag(version)
                  }
 
 }
